@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block content%}
+<br>
+<br>
+<br>
+<br>
+<form method="post">
+     {% csrf_token %}
+    <div class="col-md-6"><label class="labels">Название кампании</label>{{ form_cam_create.campaign_name }}</div>
+    <div class="col-md-6"><label class="labels">Описание кампании</label>{{ form_cam_create.campaign_description }}</div>
+
+<button class="btn btn-primary profile-button" type="submit">Создать</button>
+
+
+
+</form>
+{% endblock %}

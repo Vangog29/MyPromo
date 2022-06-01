@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block content%}
+<br>
+<br>
+<h1>My CAMP</h1>
+{% if request.method == "GET" %}
+{% for i in camp %}
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">{{i.camp_num.campaign_name}}</h4>
+        <p class="card-text">{{i.camp_num.campaign_description}}</p>
+    </div>
+</div>
+{% endfor %}
+{% endif %}
+<form action='createcamp'>
+<button class="btn btn-primary profile-button" type="submit">Добавить кампанию</button>
+</form>
+{% endblock %}

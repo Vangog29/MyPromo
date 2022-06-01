@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block content%}
+<br>
+<br>
+<br>
+<br>
+{% for i in data %}
+
+     <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">{{i.camp_num.campaign_name}}</h4>
+            <p class="card-text">{{i.camp_num.campaign_description}}</p>
+           
+        </div>
+        
+    </div>
+    <div class="card-body">
+    {% if i.house_camp == NULL %}
+    <p class="card_text"> Нет учавствующих домов </p>
+    {% else %}
+    <p class="card-text">г. {{i.house_camp.city}}</p>
+    <p class="card-text">ул. {{i.house_camp.street}}</p>
+    <p class="card-text">д. {{i.house_camp.house_number}}</p>
+    {% endif %}
+    </div> 
+    <form  action={% url 'editcamp' i.camp_num.id_campaign %}>       
+        <button class="btn btn-primary profile-button" type="submit">Редактировать</button>
+    </form>      
+{% endfor %}
+
+
+{% endblock %}
