@@ -47,15 +47,20 @@ def showcamp(request, id_campaign):
 
 
 def editcamp(request, id_campaign):
-    if request.method == "POST":
-        data = CampEditForm(request.GET)
-    
     camp_data = CampaignData.objects.get(camp_num_id = id_campaign)
+    camp = Campaing.objects.get(id_campaign = camp_data.camp_num_id)
+    if request.method == "POST":
+        form_camp = CampEditForm(request.POST, instance=camp)
+        if form_camp.is_valid():
+            form_camp.save()
+        else:
+            print(form_camp.errors)
+            print('EROOOOORRRRR')
+        
+    
     form_camp = CampEditForm()
     form_camp.fields['campaign_name'].initial = camp_data.camp_num.campaign_name
     form_camp.fields['campaign_description'].initial = camp_data.camp_num.campaign_description
 
-
-#    camp_data = CampaignData.objects.filter(camp_num_id = id_campaign)
     return render(request, "editcamp.html", {"data" : camp_data, "form_camp" : form_camp})
 
