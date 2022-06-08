@@ -27,6 +27,7 @@ urlpatterns = [
     path('createcamp', views.createcamp, name='createcamp'),
     path('mycamp', views.mycamp, name ='mycamp'),
     path('camps/<int:id_campaign>', views.showcamp, name='showcamp'),
-    path('campsedit/<int:id_campaign>', views.editcamp, name='editcamp')
+    path('campsedit/<int:id_campaign>', views.editcamp, name='editcamp'),
+    path('homeedit/<int:id_campaign>', views.homeedit, name='homeedit')
 
 ]

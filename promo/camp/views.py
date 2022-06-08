@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from camp.forms import CampManageForm, CampCreateForm, CampDataCreateForm, CampRedactForm, CampEditForm
+from camp.forms import CampManageForm, CampCreateForm, CampDataCreateForm, CampRedactForm, CampEditForm, HouseEditForm, FormPoll
 from usermanag.models import Campaing, CampaignData, House
 
 # Create your views here.
@@ -63,4 +63,32 @@ def editcamp(request, id_campaign):
     form_camp.fields['campaign_description'].initial = camp_data.camp_num.campaign_description
 
     return render(request, "editcamp.html", {"data" : camp_data, "form_camp" : form_camp})
+
+
+def homeedit(request, id_campaign):
+    house = House.objects.all()
+    if request.method == "POST":
+        camp_data = CampaignData.objects.get(camp_num_id=id_campaign)
+        form_redact_camp = CampRedactForm()
+        form_redact_camp.fields['user_camp'] = request.user
+        form_redact_camp.fields['camp_num'] = camp_data.camp_num
+        house_data = request.POST
+        id_h = House.objects.get(id_house=house_data.get('house'))
+        form_redact_camp.fields['house_camp'] = id_h
+        poll_form = FormPoll(request.POST)
+        if form_redact_camp.is_valid():
+            form_redact_camp.save()
+        else:
+            print(form_redact_camp.errors)
+            print('EROOOOORRRRR')
+        if request.POST.get('poll') == 'on':
+            if poll_form.is_valid():
+                poll_form.save()
+            else:
+                print(poll_form.errors)
+                print('EROOOOORRRRR')
+
+
+    poll_form = FormPoll()
+    return render(request, "homeedit.html", {"house" : house, "poll_form" : poll_form})
 

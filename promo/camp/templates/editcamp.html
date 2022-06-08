@@ -26,12 +26,12 @@
     {% if data.house_camp == NULL %}
     <p class="card_text"> Нет учавствующих домов </p>
     {% else %}
-    <p class="card-text">г. {{data.house_camp.city}}</p>
-    <p class="card-text">ул. {{data.house_camp.street}}</p>
-    <p class="card-text">д. {{data.house_camp.house_number}}</p>
+    <p class="card-text">г. {{data.house_camp.city}} ул. {{data.house_camp.street}} д. {{data.house_camp.house_number}}</p>
     {% endif %} 
    
 <button class="btn btn-primary profile-button" type="submit">Сохранить</button>
 </form>
-
+<form  action={% url 'homeedit' data.camp_num_id %}> 
+    <button class="btn btn-primary profile-button" type="submit">Добавить дома</button>
+</form>
 {% endblock %}

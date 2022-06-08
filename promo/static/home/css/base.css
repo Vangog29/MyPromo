@@ -10353,3 +10353,5 @@ a.text-dark:hover, a.text-dark:focus {
 .forgot-password:focus{
     color: rgb(12, 97, 33);
 }
+
+.jse_oneway .back_date { display:none }
