@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block head %}
+<script>
+function myFunction() {
+  var checkBox = document.getElementById("customSwitch1");
+  var poll = document.getElementById("poll");
+  if (checkBox.checked == true){
+    poll.style.display = "block";
+  } else {
+    poll.style.display = "none";
+  }
+}
+</script>
+	{% endblock %}
+{% block content%}
+<br>
+<br>
+<br>
+<br>
+<form method="POST">
+    {% csrf_token %}
+    
+        <label for="house">Выберете дом:</label>
+        <select class="custom-select" name="house" id="house">
+            {%for i in house %}
+          <option value="{{i.id_house}}">г. {{i.city}} ул. {{i.street}} д. {{i.house_number}} </option>
+            {% endfor %}
+        </select>
+
+        <div class="custom-control custom-switch">
+            <input type="checkbox" name="poll" class="custom-control-input" id="customSwitch1" onclick="myFunction()">
+            <label class="custom-control-label" for="customSwitch1">Добавить обход</label>
+            <div id="poll" style="display:none">
+
+
+            <br><label for="date">Дата обхода</label>{{poll_form.date}}
+            <br><label for="time">Время обхода</label>{{poll_form.time}}
+            <br>{{poll_form.door_open}}<label for="door_open">  Дверь открыли?</label>
+            <br><label for="reaction">Реакция на обход</label>{{poll_form.reaction}}
+
+
+
+            </div>
+        </div>
+        <br><br>
+        <button class="btn btn-primary" type="submit" value="Submit">Добавить</button>
+</form>
+
+
+{% endblock %}
