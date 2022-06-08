@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django import forms
-from usermanag.models import ExtendedUser, Campaing, CampaignData, House, Poll
+from usermanag.models import ExtendedUser, Campaing, CampaignData, House, Poll, PoolForm
 from django.forms import ModelForm 
 from django.contrib.auth import get_user_model
 
@@ -62,3 +62,12 @@ class FormPoll (ModelForm):
     class Meta(UserCreationForm.Meta):
         fields = ["door_open", "date", "time", "reaction"]
         model = Poll
+
+class FormPollForm(ModelForm):
+    resp_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'id':'resp_name'}))
+    resp_phone_number = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'id':'resp_phone_number'}))
+    comment = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'id':'comment'}))
+
+    class Meta(UserCreationForm):
+        fields = ["resp_name", "resp_phone_number", "comment"]
+        model = PoolForm
