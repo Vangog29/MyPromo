@@ -34,7 +34,7 @@ class CampDataCreateForm(ModelForm):
 
 
 class CampRedactForm(ModelForm):
-    
+    house_camp = forms.ModelMultipleChoiceField()
     class Meta(UserCreationForm.Meta):
 
         fields = ["user_camp", "house_camp", "camp_num", "poll_camp", "poll_form_camp"]
@@ -49,6 +49,7 @@ class CampEditForm(ModelForm):
         model = Campaing
 
 class HouseEditForm (ModelForm):
+
     class Meta(UserCreationForm.Meta):
         fields = ["id_house", "city", "street", "house_number"]
         model = House
@@ -60,7 +61,7 @@ class FormPoll (ModelForm):
     time = forms.TimeField(widget=forms.TimeInput(attrs={'type': 'time', 'id':'time'}))
     reaction = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'id':'reaction'}))
     class Meta(UserCreationForm.Meta):
-        fields = ["door_open", "date", "time", "reaction"]
+        fields = '__all__'
         model = Poll
 
 class FormPollForm(ModelForm):
@@ -69,5 +70,5 @@ class FormPollForm(ModelForm):
     comment = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'id':'comment'}))
 
     class Meta(UserCreationForm):
-        fields = ["resp_name", "resp_phone_number", "comment"]
+        fields = ["resp_name", "resp_phone_number", "comment", "id_form"]
         model = PoolForm
