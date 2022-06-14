@@ -86,7 +86,8 @@ def homeedit(request, id_campaign):
         if request.POST.get('poll') == 'on':
             if poll_form.is_valid():
                 poll_form.save()
-                id_p = Poll.objects.changed_objects()
+
+
 
             else:
                 print(poll_form.errors)
@@ -108,5 +109,5 @@ def homeedit(request, id_campaign):
 
     form_poll_form = FormPollForm()
     poll_form = FormPoll()
-    return render(request, "homeedit.html", {"house" : house, "poll_form" : poll_form, "form_poll_form" : form_poll_form, "camp_data_edit" : camp_data_edit})
+    return render(request, "homeedit.html", {"house" : house, "poll_form" : poll_form, "form_poll_form" : form_poll_form})
 

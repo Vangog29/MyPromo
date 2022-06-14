@@ -34,7 +34,7 @@ class CampDataCreateForm(ModelForm):
 
 
 class CampRedactForm(ModelForm):
-    house_camp = forms.ModelMultipleChoiceField()
+
     class Meta(UserCreationForm.Meta):
 
         fields = ["user_camp", "house_camp", "camp_num", "poll_camp", "poll_form_camp"]
