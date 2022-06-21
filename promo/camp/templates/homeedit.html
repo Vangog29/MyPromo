@@ -7,82 +7,21 @@
 {% endblock %}
 
 {% block head %}
-<script>
-function myFunction() {
-  var checkBox = document.getElementById("customSwitch1");
-  var poll = document.getElementById("poll");
-  if (checkBox.checked == true){
-    poll.style.display = "block";
-  } else {
-    poll.style.display = "none";
-  }
-}
 
-function myFunction2() {
-  var checkBox = document.getElementById("customSwitch2");
-  var pollForm = document.getElementById("pollForm");
-  if (checkBox.checked == true){
-    pollForm.style.display = "block";
-  } else {
-    pollForm.style.display = "none";
-  }
-}
-</script>
 	{% endblock %}
 {% block content%}
 <br>
 <br>
 <br>
 <br>
-<form method="POST"  novalidate>
+<form method="POST">
     {% csrf_token %}
-    <div class="container">
-         <div class="row">
-              <div class="col">
-        <label for="house">Выберете дом:</label>
-        <select class="custom-select" name="house" id="house">
-            {%for i in house %}
-          <option value="{{i.id_house}}">г. {{i.city}} ул. {{i.street}} д. {{i.house_number}} </option>
-            {% endfor %}
-        </select>
-
-        <div class="custom-control custom-switch">
-            <input type="checkbox" name="poll" class="custom-control-input" id="customSwitch1" onclick="myFunction()">
-            <label class="custom-control-label" for="customSwitch1">Добавить обход</label>
-            <div id="poll" style="display:none">
+    <br>{{form.house_camp}}
+    <br>{{form.poll_camp}}
+    <br>{{form.poll_form_camp}}
 
 
-            <br><label for="date">Дата обхода</label>{{poll_form.date}}
-            <br><label for="time">Время обхода</label>{{poll_form.time}}
-            <br>{{poll_form.door_open}}<label for="door_open">  Дверь открыли?</label>
-            <br><label for="reaction">Реакция на обход</label>{{poll_form.reaction}}
-
-
-
-            </div>
-        </div>
-        <br><br>
-              </div>
-
-         <div class="col">
-             <div class="custom-control custom-switch">
-                  <input type="checkbox" name="pollForm" class="custom-control-input" id="customSwitch2" onclick="myFunction2()">
-            <label class="custom-control-label" for="customSwitch2">Добавить форму обхода</label>
-            <div id="pollForm" style="display:none">
-            <br><label for="resp_name">Имя</label>{{form_poll_form.resp_name}}
-            <br><label for="resp_phone_number">Номер телефона</label>{{form_poll_form.resp_phone_number}}
-            <br><label for="comment">Комментарий</label>{{form_poll_form.comment}}
-
-
-            </div>
-             </div>
-         </div>
-
-             </div>
-        <div class="row"><button class="btn btn-primary" type="submit" value="Submit">Добавить</button></div>
-        </div>
-
-
+<div class="row"><button class="btn btn-primary" type="submit" value="Submit">Добавить</button></div>
 </form>
 
 

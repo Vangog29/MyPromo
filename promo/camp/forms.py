@@ -25,20 +25,23 @@ class CampCreateForm(ModelForm):
         fields = ["campaign_name", "campaign_description"]
         model = Campaing
 
-class CampDataCreateForm(ModelForm):
-    house_camp = forms.ModelChoiceField(queryset = House.objects.all())
 
-    class Meta(UserCreationForm.Meta):
-        fields = ["house_camp", "camp_num"]
-        model = CampaignData
 
 
 class CampRedactForm(ModelForm):
+    house_camp = forms.ModelChoiceField(
+                                        queryset=House.objects,
+                                        to_field_name ="address",
+                                        widget=forms.Select
+                                        )
+    user_camp = forms.IntegerField()
+    camp_num = forms.IntegerField()
 
     class Meta(UserCreationForm.Meta):
 
         fields = ["user_camp", "house_camp", "camp_num", "poll_camp", "poll_form_camp"]
         model = CampaignData
+
 
 class CampEditForm(ModelForm):
     campaign_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'card-text'}))
@@ -51,7 +54,7 @@ class CampEditForm(ModelForm):
 class HouseEditForm (ModelForm):
 
     class Meta(UserCreationForm.Meta):
-        fields = ["id_house", "city", "street", "house_number"]
+        fields = ["id_house", "address",]
         model = House
 
 

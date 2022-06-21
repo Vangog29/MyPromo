@@ -34,4 +34,10 @@
 <form  action={% url 'homeedit' data.camp_num_id %}> 
     <button class="btn btn-primary profile-button" type="submit">Добавить дома</button>
 </form>
+<form  action={% url 'polledit' data.camp_num_id %}>
+    <button class="btn btn-primary profile-button" type="submit">Добавить обходы</button>
+</form>
+<form  action={% url 'formpoll' data.camp_num_id %}>
+    <button class="btn btn-primary profile-button" type="submit">Добавить формы обхода</button>
+</form>
 {% endblock %}

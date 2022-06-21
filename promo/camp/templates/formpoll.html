@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block head %}
+
+	{% endblock %}
+{% block content%}
+<br>
+<br>
+<br>
+{% for i in poll_form %}
+{{i}}
+{% endfor %}
+<br>
+<form method="POST"  novalidate>
+    {% csrf_token %}
+
+
+            <br><label for="resp_name">Имя</label>{{form.resp_name}}
+            <br><label for="resp_phone_number">Номер телефона</label>{{form.resp_phone_number}}
+            <br><label for="comment">Комментарий</label>{{form.comment}}
+
+
+
+        <div class="row"><button class="btn btn-primary" type="submit" value="Submit">Добавить</button></div>
+
+
+</form>
+
+
+
+{% endblock %}

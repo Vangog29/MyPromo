@@ -27,9 +27,10 @@ class ExtendedUser(AbstractUser):
 
 class House(models.Model):
     id_house = models.AutoField(primary_key=True)
-    city = models.CharField(max_length=200, verbose_name='Город', default="default title")
-    street = models.CharField(max_length=200, verbose_name='Улица')
-    house_number = models.CharField(max_length=200, verbose_name='Номер дома', default="default title")
+    address = models.CharField(max_length=400, verbose_name='Адрес', default="default title")
+    #city = models.CharField(max_length=200, verbose_name='Город', default="default title")
+    #street = models.CharField(max_length=200, verbose_name='Улица')
+    #house_number = models.CharField(max_length=200, verbose_name='Номер дома', default="default title")
 
     entrance = models.IntegerField(verbose_name='Количество подъездов')
     apartment_in_entracne = models.IntegerField(verbose_name='Квартир в подъезде')
@@ -39,6 +40,8 @@ class House(models.Model):
         verbose_name = 'Дом'
         verbose_name_plural = 'Дома'
 
+    def __str__(self):
+        return self.address
 
 class Campaing(models.Model):
     id_campaign = models.AutoField(primary_key=True)
@@ -61,6 +64,9 @@ class Poll(models.Model):
         verbose_name = 'Обход'
         verbose_name_plural = 'Обходы'
 
+    def __str__(self):
+        return str(self.date) + ' ' + str(self.time) + ' ' + str(self.reaction)
+
 
 class PoolForm(models.Model):
     id_form = models.AutoField(primary_key=True)
@@ -71,6 +77,9 @@ class PoolForm(models.Model):
     class Meta:
         verbose_name = 'Протокол обходов'
         verbose_name_plural = 'Протоколы'
+    def __str__(self):
+        return self.resp_name
+
 
 class CampaignData (models.Model):
     user_camp = models.ForeignKey('ExtendedUser',  blank=True, null=True, on_delete=models.CASCADE, verbose_name='Пользователь')

@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from camp.forms import CampManageForm, CampCreateForm, CampDataCreateForm, CampRedactForm, CampEditForm, HouseEditForm, FormPoll, FormPollForm
-from usermanag.models import Campaing, CampaignData, House, Poll
+from camp.forms import CampManageForm, CampCreateForm, CampRedactForm, CampEditForm, HouseEditForm, FormPoll, FormPollForm
+from usermanag.models import Campaing, CampaignData, House, Poll, PoolForm
 
 # Create your views here.
 def mycamp(request):
@@ -66,48 +66,46 @@ def editcamp(request, id_campaign):
 
 
 def homeedit(request, id_campaign):
+    form = CampRedactForm()
 
 
-    house = House.objects.all()
     if request.method == "POST":
-        camp_data_edit = CampRedactForm(request.POST)
-        camp_data = CampaignData.objects.get(camp_num_id=id_campaign)
-        form_redact_camp = CampRedactForm()
-        form_redact_camp.fields['user_camp'] = request.user
-        form_redact_camp.fields['camp_num'] = camp_data.camp_num
-        house_data = request.POST
-        id_h = House.objects.get(id_house=house_data.get('house'))
-        form_redact_camp.fields['house_camp'] = id_h
-        poll_form = FormPoll(request.POST)
-        form_poll_form = FormPollForm(request.POST)
+        form = CampRedactForm(request.POST)
+
+        if form.is_valid():
+            form.user_camp = request.user.id
+            form.camp_num = id_campaign
+            form.save()
+            print (form)
 
 
+    return render(request, "homeedit.html", {"form" : form})
 
-        if request.POST.get('poll') == 'on':
-            if poll_form.is_valid():
-                poll_form.save()
+def polledit(request, id_campaign):
+    form = FormPoll()
+    poll = Poll.objects.all()
+    if request.method == "POST":
+        form = FormPoll(request.POST)
+        if form.is_valid():
+            form.save()
 
-
-
-            else:
-                print(poll_form.errors)
-                print('EROOOOORRRRR')
-
-
-        if request.POST.get('pollForm') == 'on':
-            if form_poll_form.is_valid():
-                form_poll_form.save()
-            else:
-                print(poll_form.errors)
-                print('EROOOOORRRRR')
-
-        if form_redact_camp.is_valid():
-            form_redact_camp.save()
         else:
-            print(form_redact_camp.errors)
+            print(form.errors)
+            print('EROOOOORRRRR')
+    poll = Poll.objects.all()
+    return render(request,"polledit.html", {"form": form, "poll": poll})
+
+def formpoll (request, id_campaign):
+    form = FormPollForm()
+    poll_form = PoolForm.objects.all()
+
+    if request.method == "POST":
+        form = FormPollForm(request.POST)
+        if form.is_valid():
+            form.save()
+        else:
+            print(form.errors)
             print('EROOOOORRRRR')
 
-    form_poll_form = FormPollForm()
-    poll_form = FormPoll()
-    return render(request, "homeedit.html", {"house" : house, "poll_form" : poll_form, "form_poll_form" : form_poll_form})
-
+    poll_form = PoolForm.objects.all()
+    return render(request, "formpoll.html", {"form": form, "poll_form": poll_form})
