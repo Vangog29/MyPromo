@@ -6,7 +6,14 @@ from usermanag.models import Campaing, CampaignData, House, Poll, PoolForm
 def mycamp(request):
 
     if request.method == "GET":
-        camp_dat = CampaignData.objects.filter(user_camp_id = request.user.id)
+        camp_dat_id = CampaignData.objects.filter(user_camp_id = request.user.id)
+        uniq_id = []
+        for n in camp_dat_id:
+            if n.camp_num_id not in uniq_id:
+                uniq_id.append(n.camp_num_id)
+        uniq_id.sort()
+        camp_dat = Campaing.objects.filter(id_campaign__in=uniq_id)
+
         return render(request, "mycamp.html", {"camp": camp_dat})
     elif request.method == "POST":
         form = CampManageForm(request.POST)
@@ -36,21 +43,24 @@ def createcamp(request):
 
 
 def camps(request):
-    camp_data = CampaignData.objects.all()
+    camp_data = Campaing.objects.all()
     return render(request, "camps.html", {"data" : camp_data})
 
         
 
 def showcamp(request, id_campaign):
-    camp_data = CampaignData.objects.filter(camp_num_id = id_campaign)
-    return render(request, "showcamp.html", {"data" : camp_data})
+    camp_data = Campaing.objects.filter(id_campaign = id_campaign)
+    all_data = CampaignData.objects.filter(camp_num_id = id_campaign)
+    return render(request, "showcamp.html", {"data" : camp_data, "all_data" : all_data})
 
 
 def editcamp(request, id_campaign):
-    camp_data = CampaignData.objects.get(camp_num_id = id_campaign)
-    camp = Campaing.objects.get(id_campaign = camp_data.camp_num_id)
+    #camp_data = CampaignData.objects.get(camp_num_id = id_campaign)
+    #camp = Campaing.objects.get(id_campaign = camp_data.camp_num_id)
+    camp_data = Campaing.objects.get(id_campaign=id_campaign)
+    data = CampaignData.objects.filter(camp_num_id = id_campaign)
     if request.method == "POST":
-        form_camp = CampEditForm(request.POST, instance=camp)
+        form_camp = CampEditForm(request.POST, instance=camp_data)
         if form_camp.is_valid():
             form_camp.save()
         else:
@@ -59,25 +69,28 @@ def editcamp(request, id_campaign):
         
     
     form_camp = CampEditForm()
-    form_camp.fields['campaign_name'].initial = camp_data.camp_num.campaign_name
-    form_camp.fields['campaign_description'].initial = camp_data.camp_num.campaign_description
+    form_camp.fields['campaign_name'].initial = camp_data.campaign_name
+    form_camp.fields['campaign_description'].initial = camp_data.campaign_description
 
-    return render(request, "editcamp.html", {"data" : camp_data, "form_camp" : form_camp})
+    return render(request, "editcamp.html", {"data" : data, "form_camp" : form_camp, "camp_data" : camp_data})
 
 
 def homeedit(request, id_campaign):
     form = CampRedactForm()
-
+    camp = Campaing.objects.get(id_campaign=id_campaign)
 
     if request.method == "POST":
         form = CampRedactForm(request.POST)
 
         if form.is_valid():
-            form.user_camp = request.user.id
-            form.camp_num = id_campaign
-            form.save()
+            obj = form.save(commit=False)
+            obj.user_camp = request.user
+            obj.camp_num = camp
+            obj.save()
             print (form)
-
+        else:
+            print(form.errors)
+            print('EROOOOORRRRR')
 
     return render(request, "homeedit.html", {"form" : form})
 
@@ -109,3 +122,11 @@ def formpoll (request, id_campaign):
 
     poll_form = PoolForm.objects.all()
     return render(request, "formpoll.html", {"form": form, "poll_form": poll_form})
+
+def showpoll(request, id_poll):
+    poll_data = Poll.objects.get(id_poll=id_poll)
+    return render(request, "showpoll.html", {"poll_data" : poll_data} )
+
+def showpollform(request, id_form):
+    poll_form_data = PoolForm.objects.get(id_form=id_form)
+    return render(request, "showpollform.html", {"poll_form_data" : poll_form_data})

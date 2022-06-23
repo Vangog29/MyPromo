@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block head %}
+	{% endblock %}
+{% block content%}
+<br>
+<br>
+<br>
+<div class="container">
+    <div class="card card-container">
+        <br><h5 class="card-title">Дата обхода</h5>
+        <p class="card-text">{{poll_data.date}}</p>
+
+        <br><h5 class="card-title">Время обхода</h5>
+        <p class="card-text">{{poll_data.time}}</p>
+
+        <br><h5 class="card-title">Дверь открыли?</h5>
+        {% if poll_data.door_open %}
+        <p class="card-text">ДА</p>
+        {% else %}
+        <p class="card-text">НЕТ</p>
+        {% endif %}
+        <br><h5 class="card-title">Реакция на обход</h5>
+        <p class="card-text">{{poll_data.reaction}}</p>
+
+    </div>
+</div>
+
+
+
+
+
+
+{% endblock %}

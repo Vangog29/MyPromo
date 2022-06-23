@@ -16,14 +16,20 @@
 <br>
 <form method="POST">
     {% csrf_token %}
-    <br>{{form.house_camp}}
-    <br>{{form.poll_camp}}
-    <br>{{form.poll_form_camp}}
+    <div class="container">
+    <div class="card card-container">
+        <h6 class="card-title">Добавить дом к кампании:</h6>
+    {{form.house_camp}}
+        <h6 class="card-title">Добавить обход к кампании:</h6>
+    {{form.poll_camp}}
+        <h6 class="card-title">Добавить форму обхода к кампании:</h6>
+    {{form.poll_form_camp}}
 
 
-<div class="row"><button class="btn btn-primary" type="submit" value="Submit">Добавить</button></div>
+<br><div class="row"><button class="btn btn-lg btn-primary btn-block btn-signin" type="submit" value="Submit">Добавить</button></div>
 </form>
-
+    </div>
+    </div>
 
 
 {% endblock %}

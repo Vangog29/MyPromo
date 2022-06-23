@@ -34,12 +34,11 @@ class CampRedactForm(ModelForm):
                                         to_field_name ="address",
                                         widget=forms.Select
                                         )
-    user_camp = forms.IntegerField()
-    camp_num = forms.IntegerField()
+
 
     class Meta(UserCreationForm.Meta):
 
-        fields = ["user_camp", "house_camp", "camp_num", "poll_camp", "poll_form_camp"]
+        fields = '__all__'
         model = CampaignData
 
 

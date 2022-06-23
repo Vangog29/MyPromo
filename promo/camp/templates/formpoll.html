@@ -13,22 +13,29 @@
 <br>
 <br>
 <br>
+<div class="container">
+    <div class="card card-container">
+<h6 class="card-title">Формы обхода:</h6>
 {% for i in poll_form %}
-{{i}}
+        <a href={% url 'showpollform' i.id_form %}>
+<br>{{i}}
+        </a>
 {% endfor %}
+    </div>
+</div>
 <br>
 <form method="POST"  novalidate>
     {% csrf_token %}
-
-
+<div class="container">
+    <div class="card card-container">
+            <h4 class="card-title">Форма обхода:</h4>
             <br><label for="resp_name">Имя</label>{{form.resp_name}}
             <br><label for="resp_phone_number">Номер телефона</label>{{form.resp_phone_number}}
             <br><label for="comment">Комментарий</label>{{form.comment}}
 
-
-
-        <div class="row"><button class="btn btn-primary" type="submit" value="Submit">Добавить</button></div>
-
+        <br><div class="row"><button class="btn btn-lg btn-primary btn-block btn-signin" type="submit" value="Submit">Добавить</button></div>
+    </div>
+</div>
 
 </form>
 

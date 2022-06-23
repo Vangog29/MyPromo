@@ -14,30 +14,32 @@
 <form method="POST">
     {% csrf_token %}
 
-
+<div class="container">
      <div class="card">
         <div class="card-body">
             <h4 class="card-title">{{form_camp.campaign_name}}</h4>
             <p class="card-text">{{form_camp.campaign_description}}</p>
            
         </div>
-        
+    <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Сохранить</button>
+     </div>
+
+</div>
+
+
+</form>
+<div class="container">
+    <div class="card card-container">
+        <h5 class="card-title">Добавить:</h5>
+    <form  action={% url 'homeedit' camp_data.id_campaign %}>
+        <br><button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Добавить дома</button>
+    </form>
+    <form  action={% url 'polledit' camp_data.id_campaign %}>
+       <br> <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Добавить обходы</button>
+    </form>
+    <form  action={% url 'formpoll' camp_data.id_campaign %}>
+        <br><button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Добавить формы обхода</button>
+    </form>
     </div>
-    {% if data.house_camp == NULL %}
-    <p class="card_text"> Нет учавствующих домов </p>
-    {% else %}
-    <p class="card-text">г. {{data.house_camp.city}} ул. {{data.house_camp.street}} д. {{data.house_camp.house_number}}</p>
-    {% endif %} 
-   
-<button class="btn btn-primary profile-button" type="submit">Сохранить</button>
-</form>
-<form  action={% url 'homeedit' data.camp_num_id %}> 
-    <button class="btn btn-primary profile-button" type="submit">Добавить дома</button>
-</form>
-<form  action={% url 'polledit' data.camp_num_id %}>
-    <button class="btn btn-primary profile-button" type="submit">Добавить обходы</button>
-</form>
-<form  action={% url 'formpoll' data.camp_num_id %}>
-    <button class="btn btn-primary profile-button" type="submit">Добавить формы обхода</button>
-</form>
+</div>
 {% endblock %}
