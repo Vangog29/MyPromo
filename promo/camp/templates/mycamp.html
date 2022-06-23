@@ -9,18 +9,23 @@
 {% block content%}
 <br>
 <br>
-<h1>My CAMP</h1>
+<h1>Мои кампании</h1>
 {% if request.method == "GET" %}
 {% for i in camp %}
-<div class="card">
+<div class="container">
+<div class="card card-container">
     <div class="card-body">
-        <h4 class="card-title">{{i.camp_num.campaign_name}}</h4>
-        <p class="card-text">{{i.camp_num.campaign_description}}</p>
+        <h4 class="card-title">{{i.campaign_name}}</h4>
+        <p class="card-text">{{i.campaign_description}}</p>
+        <form  action={% url 'showcamp' i.id_campaign %}>
+            <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Управление кампанией</button>
+        </form>
     </div>
 </div>
 {% endfor %}
 {% endif %}
 <form action='createcamp'>
-<button class="btn btn-primary profile-button" type="submit">Добавить кампанию</button>
+<button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Добавить кампанию</button>
 </form>
+</div>
 {% endblock %}

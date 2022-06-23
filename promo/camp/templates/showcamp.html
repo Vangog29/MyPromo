@@ -13,26 +13,61 @@
 <br>
 {% for i in data %}
 
-     <div class="card">
-        <div class="card-body">
-            <h4 class="card-title">{{i.camp_num.campaign_name}}</h4>
-            <p class="card-text">{{i.camp_num.campaign_description}}</p>
+<div class="container">
+    <div class="row">
+        <!--Опимание кампании-->
+        <div class="col-sm">
+            <div class="card card-container">
+                <div class="card">
+                    <div class="card-body">
+            <h4 class="card-title">{{i.campaign_name}}</h4>
+            <p class="card-text">{{i.campaign_description}}</p>
            
-        </div>
+                    </div>
         
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <!--Дома кампании-->
+            <div class="card card-container">
+                <div class="card-body">
+                    <h5 class="card-title">Дома учавствующие в кампании:</h5>
+                {% for p in all_data %}
+                {% if p.house_camp != NULL %}
+                <p class="card-text">{{p.house_camp.address}}</p>
+                {% else %}
+
+                {% endif %}
+                {% endfor %}
+                </div>
+
+            </div>
+        </div>
+        <div class="col-sm">
+            <!--Обходы-->
+            <div class="card card-container">
+                <div class="card-body">
+                    <h5 class="card-title">Обходы кампании:</h5>
+                {% for p in all_data %}
+                {% if p.poll_camp_id != NULL %}
+                <a href={% url 'showpoll' p.poll_camp_id %}>
+                    <p class="card-text"> {{p.poll_camp.date}} {{p.poll_camp.time}} {{p.poll_camp.reaction}}</p>
+                </a>
+                    {% else %}
+
+                {% endif %}
+                {% endfor %}
+                </div>
+
+            </div>
+        </div>
     </div>
-    <div class="card-body">
-    {% if i.house_camp == NULL %}
-    <p class="card_text"> Нет учавствующих домов </p>
-    {% else %}
-    <p class="card-text">г. {{i.house_camp.city}}</p>
-    <p class="card-text">ул. {{i.house_camp.street}}</p>
-    <p class="card-text">д. {{i.house_camp.house_number}}</p>
-    {% endif %}
-    </div> 
-    <form  action={% url 'editcamp' i.camp_num.id_campaign %}>       
-        <button class="btn btn-primary profile-button" type="submit">Редактировать</button>
-    </form>      
+   <form  action={% url 'editcamp' i.id_campaign %}>
+        <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Редактировать</button>
+    </form>
+</div>
+
 {% endfor %}
 
 

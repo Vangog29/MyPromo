@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block head %}
+	{% endblock %}
+{% block content%}
+<br xmlns="http://www.w3.org/1999/html">
+<br>
+<br>
+<div class="container">
+    <div class="card card-container">
+<h6 class="card-title">Обходы:</h6>
+{% for i in poll %}
+          <a href={% url 'showpoll' i.id_poll %}>
+        <p class="card-text">{{i}}</p><br>
+            </a>
+        {% endfor %}
+    </div>
+</div>
+<br>
+<form method="POST">
+    {% csrf_token %}
+<div class="container">
+    <div class="card card-container">
+
+
+            <br><label for="date">Дата обхода</label>{{form.date}}
+            <br><label for="time">Время обхода</label>{{form.time}}
+            <br><label for="door_open">  Дверь открыли?</label>{{form.door_open}}
+            <br><label for="reaction">Реакция на обход</label>{{form.reaction}}
+
+        <br><br>
+
+        <div class="row"><button class="btn btn-lg btn-primary btn-block btn-signin" type="submit" value="Submit">Добавить</button></div>
+
+    </div>
+</div>
+
+
+</form>
+
+
+
+{% endblock %}

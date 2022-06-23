@@ -10,10 +10,15 @@
 <br>
 <br>
 <br>
-<form method="post">
+<div class="container">
+        <div class="card card-container">
+<form method="post" class="form-signin">
     {% csrf_token %}
+    <div class="form-group">
     {{form}}
-    <input type="submit" value="Register">
+        </div>
+    <input class="btn btn-lg btn-primary btn-block btn-signin" type="submit" value="Register">
 </form>
-
+        </div><!-- /card-container -->
+</div><!-- /container -->
 {% endblock %}
